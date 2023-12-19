@@ -16,6 +16,8 @@ int main() {
 
     Client c1("Dupont", "Jean", "jdupont", identifiant);
     Client c2("Durand", "Pierre", "pdurand", identifiant);
+    Client c3("Dupont", "Antoine", "adupont", identifiant);
+    Client c4("Garcia", "Frederic", "fgarcia", identifiant);
 
     Produit p1("PS4", "Console de jeu de marque Sony", 10, 249.99);
     Produit p2("Xbox One", "Console de jeu de marque Microsoft", 5, 279.99);
@@ -25,12 +27,17 @@ int main() {
     InterMarche.ajouterProduit(p2);
     InterMarche.ajouterProduit(p3);
 
-    c1.ajouterProduit(p1);
-    c1.ajouterProduit(p2);
-    c1.ajouterProduit(p3);
 
-    c1.modifierQuantiteProduit(p1, 2);
+    InterMarche.ajouterClient(c1);
+    InterMarche.ajouterClient(c2);
+    InterMarche.ajouterClient(c3);
+
+    InterMarche.ajouterProduitPanier(c1, p1);
+    InterMarche.ajouterProduitPanier(c1, p2);
+    InterMarche.ajouterProduitPanier(c1, p1);
+    InterMarche.supprimerProduitPanier(c1, p1);
+    InterMarche.modifierQuantiteProduitPanier(c1, p2, 2);
+
     std::cout<< c1 << std::endl;
-
     return 0;
 }

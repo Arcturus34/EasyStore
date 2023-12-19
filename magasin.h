@@ -18,6 +18,11 @@ public:
     void ajouterProduit(Produit produit);
     Produit getProduit(std::string titre) const;
     void modifierQuantite(std::string titre, int quantite);
+    void ajouterClient(Client client);
+    std::string getClient(std::string index) const;
+    void ajouterProduitPanier(Client& client, Produit& produit);
+    void supprimerProduitPanier(Client& client, Produit& produit);
+    void modifierQuantiteProduitPanier(Client& client, Produit& produit, int quantite);
 private:
     std::vector<Produit> _produits;
     std::vector<Client> _clients;

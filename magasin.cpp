@@ -21,13 +21,17 @@ void Magasin::ajouterProduit(Produit produit) {
 }
 
 std::ostream& operator<<(std::ostream& os, const Magasin& magasin){
+    os << "Clients : " << std::endl;
+    for(auto i=0; i<magasin.getClient().size(); i++){
+        os << "    " <<magasin.getClient()[i].getNom() << " " << magasin.getClient()[i].getPrenom() << " " << magasin.getClient()[i].getIdentifiant() << std::endl;
+    }
     os << "Produits : " << std::endl;
     for(auto i=0; i<magasin.getProduit().size(); i++){
         if(magasin.getProduit()[i].getQuantite() > 1) {
-            os << magasin.getProduit()[i].getTitre() << " " << magasin.getProduit()[i].getPrix() << " euros "<< magasin.getProduit()[i].getQuantite() << " exemplaires" << std::endl;
+            os << "    " <<magasin.getProduit()[i].getTitre() << " " << magasin.getProduit()[i].getPrix() << " euros "<< magasin.getProduit()[i].getQuantite() << " exemplaires" << std::endl;
         }
         else{
-            os << magasin.getProduit()[i].getTitre() << " " << magasin.getProduit()[i].getPrix() << " euros "<< magasin.getProduit()[i].getQuantite() << " exemplaire" << std::endl;
+            os << "    " <<magasin.getProduit()[i].getTitre() << " " << magasin.getProduit()[i].getPrix() << " euros "<< magasin.getProduit()[i].getQuantite() << " exemplaire" << std::endl;
         }
     }
     return os;
@@ -52,5 +56,96 @@ void Magasin::modifierQuantite(std::string titre, int quantite) {
     }
     if(test == false){
         std::cout << "Produit non trouve" << std::endl;
+    }
+}
+
+void Magasin::ajouterClient(Client client) {
+    _clients.push_back(client);
+}
+
+std::string Magasin::getClient(std::string index) const {
+    bool test = false;
+    for(auto i=0; i<_clients.size(); i++){
+        if(_clients[i].getIdentifiant() == index || _clients[i].getNom() == index){
+            std::cout<< _clients[i].getNom() + " " + _clients[i].getPrenom()+ " " + _clients[i].getIdentifiant()<<std::endl;
+            test = true;
+        }
+    }
+    if(test == false) {
+        std::cout << "Client non trouve" << std::endl;
+    }
+}
+
+void Magasin::ajouterProduitPanier(Client& client, Produit& produit) {
+    bool test = false;
+    for (auto i = 0; i < _produits.size(); i++) {
+        if (_produits[i].getTitre() == produit.getTitre()) {
+            test = true;
+        }
+    }
+    if(test == false){
+        std::cout << "Produit non trouve" << std::endl;
+    }
+    else{
+        test = false;
+        for(auto i=0; i<_clients.size(); i++){
+            if(_clients[i].getIdentifiant() == client.getIdentifiant()){
+                client.ajouterProduit(produit);
+                test = true;
+            }
+        }
+        if(test == false){
+            std::cout << "Client non trouve" << std::endl;
+        }
+    }
+}
+
+void Magasin::supprimerProduitPanier(Client& client, Produit& produit) {
+    bool test = false;
+    for(auto i=0; i<_produits.size(); i++){
+        if(_produits[i].getTitre() == produit.getTitre()){
+            test = true;
+        }
+    }
+    if(test == false){
+        std::cout << "Produit non trouve" << std::endl;
+    }
+    else {
+        test = false;
+        for (auto i = 0; i < _clients.size(); i++) {
+            if (_clients[i].getIdentifiant() == client.getIdentifiant()) {
+                client.supprimerProduit(produit);
+                test = true;
+                break;
+            }
+        }
+        if (test == false) {
+            std::cout << "Client non trouve" << std::endl;
+        }
+    }
+}
+
+void Magasin::modifierQuantiteProduitPanier(Client& client, Produit& produit, int quantite) {
+    bool test = false;
+    for(auto i=0; i<_produits.size(); i++){
+        if(_produits[i].getTitre() == produit.getTitre()){
+            test = true;
+        }
+    }
+    if(test == false){
+        std::cout << "Produit non trouve" << std::endl;
+    }
+    else {
+        test = false;
+        for (auto i = 0; i < _clients.size(); i++) {
+            if (_clients[i].getIdentifiant() == client.getIdentifiant()) {
+                client.modifierQuantiteProduit(produit, quantite);
+                test = true;
+                break;
+            }
+        }
+        if (test == false) {
+            std::cout << "Client non trouve" << std::endl;
+        }
     }
 }
