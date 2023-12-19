@@ -10,4 +10,6 @@ add_executable(EasyStore
         client.h
         client.cpp
         magasin.h
-        magasin.cpp)
+        magasin.cpp
+        commande.h
+        commande.cpp)

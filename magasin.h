@@ -7,6 +7,7 @@
 
 #include "produit.h"
 #include "client.h"
+#include "commande.h"
 
 #include <vector>
 
@@ -15,6 +16,7 @@ public:
     Magasin();
     std::vector<Client> getClient() const;
     std::vector<Produit> getProduit() const;
+    std::vector<Commande> getCommande() const;
     void ajouterProduit(Produit produit);
     Produit getProduit(std::string titre) const;
     void modifierQuantite(std::string titre, int quantite);
@@ -23,10 +25,12 @@ public:
     void ajouterProduitPanier(Client& client, Produit& produit);
     void supprimerProduitPanier(Client& client, Produit& produit);
     void modifierQuantiteProduitPanier(Client& client, Produit& produit, int quantite);
+    void validerCommande(Client& client);
+
 private:
     std::vector<Produit> _produits;
     std::vector<Client> _clients;
-    //std::vector <Commande> _commandes;
+    std::vector <Commande> _commandes;
 };
 
 std::ostream& operator<<(std::ostream& os, const Magasin& magasin);

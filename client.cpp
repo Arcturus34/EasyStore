@@ -17,6 +17,7 @@ Client::Client(std::string nom, std::string prenom, std::string identifiant, std
     }
 }
 
+Client::Client() {}
 
 std::string Client::getNom() const {
     return _nom;

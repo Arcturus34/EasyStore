@@ -12,7 +12,8 @@
 
 class Client {
 public:
-    Client (std::string nom, std::string prenom, std::string identifiant, std::vector<Client>& tabIdentifiant);
+    Client(std::string nom, std::string prenom, std::string identifiant, std::vector<Client>& tabIdentifiant);
+    Client();
     std::string getNom() const;
     std::string getPrenom() const;
     std::string getIdentifiant() const;

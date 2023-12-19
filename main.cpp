@@ -5,6 +5,7 @@
 #include "produit.h"
 #include "client.h"
 #include "magasin.h"
+#include "commande.h"
 
 #include <iostream>
 
@@ -38,6 +39,9 @@ int main() {
     InterMarche.supprimerProduitPanier(c1, p1);
     InterMarche.modifierQuantiteProduitPanier(c1, p2, 2);
 
-    std::cout<< c1 << std::endl;
+    InterMarche.validerCommande(c1);
+    std::cout<<InterMarche<<std::endl;
+    std::cout<<c1<<std::endl;
+
     return 0;
 }

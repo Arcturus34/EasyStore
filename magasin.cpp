@@ -34,6 +34,21 @@ std::ostream& operator<<(std::ostream& os, const Magasin& magasin){
             os << "    " <<magasin.getProduit()[i].getTitre() << " " << magasin.getProduit()[i].getPrix() << " euros "<< magasin.getProduit()[i].getQuantite() << " exemplaire" << std::endl;
         }
     }
+    os << "Commandes : " << std::endl;
+    for(auto i=0; i<magasin.getCommande().size(); i++){
+        os << "    Client: " <<magasin.getCommande()[i].getClient().getNom() << " " << magasin.getCommande()[i].getClient().getPrenom() << " " << magasin.getCommande()[i].getClient().getIdentifiant();
+        os << " / Produits:";
+        for(auto j=0; j<magasin.getCommande()[i].getClient().getPanier().size(); j++){
+            if(j == magasin.getCommande()[i].getClient().getPanier().size()-1){
+                os << " "<< magasin.getCommande()[i].getClient().getPanier()[j].getTitre();
+            }
+            else {
+                os << " " << magasin.getCommande()[i].getClient().getPanier()[j].getTitre() << " ,";
+            }
+        }
+        os << " / Prix: " << magasin.getCommande()[i].getClient().calculerTotalPanier() << " euros";
+        os << " / Status: " << magasin.getCommande()[i].getLivraison() << std::endl;
+    }
     return os;
 }
 
@@ -148,4 +163,24 @@ void Magasin::modifierQuantiteProduitPanier(Client& client, Produit& produit, in
             std::cout << "Client non trouve" << std::endl;
         }
     }
+}
+
+std::vector<Commande> Magasin::getCommande() const {
+    return _commandes;
+}
+
+void Magasin::validerCommande(Client& client) {
+    bool test = false;
+        for (auto i = 0; i < _clients.size(); i++) {
+            if (_clients[i].getIdentifiant() == client.getIdentifiant()) {
+                Commande commande(client);
+                _commandes.push_back(commande);
+                client.viderPanier();
+                test = true;
+                break;
+            }
+        }
+        if (test == false) {
+            std::cout << "Client non trouve" << std::endl;
+        }
 }
